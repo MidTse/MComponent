@@ -1,2 +1,2 @@
 # MComponent
-Basic component library for component development
+Base component library based on MvpArms package
