@@ -1,2 +1,2 @@
 # MComponent
-Base component library based on MvpArms package
+Base component library based on MVPArms package
