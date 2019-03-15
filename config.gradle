@@ -3,7 +3,7 @@ ext {
     android = [
             compileSdkVersion       : 28,
             buildToolsVersion       : "28.0.3",
-            minSdkVersion           : 14,
+            minSdkVersion           : 19,
             targetSdkVersion        : 28,
             versionCode             : 1,
             versionName             : "0.1.0"
@@ -53,6 +53,7 @@ ext {
             "paginate"                 : "com.github.markomilos:paginate:0.5.1",
             "vlayout"                  : "com.alibaba.android:vlayout:1.1.0@aar",
             "autosize"                 : "me.jessyan:autosize:1.1.1",
+            "BaseRecyclerViewAdapter"  : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46",
 
             //rx1
             "rxandroid"                : "io.reactivex:rxandroid:1.2.1",

@@ -40,4 +40,20 @@ dependencies {
     api 'me.jessyan:arms-imageloader-glide:2.5.0'
     //EventBus事件
     api rootProject.ext.dependencies["androideventbus"]
+    //加载对话框
+    api 'com.dyhdyh.loadingbar:loadingbar:1.4.7'
+    //Recyclerview适配器
+    api rootProject.ext.dependencies["BaseRecyclerViewAdapter"]
+    //页面多状态切换
+    api('com.github.FengChenSunshine:UiStatus:1.0.0'){
+        exclude module: 'support-annotations'
+    }
+    //沉浸式状态栏适配
+    api('com.gyf.immersionbar:immersionbar:2.3.3-beta09')
+
+    //Dagger2 Butterknife  apt编译操作
+    annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
+        exclude module: 'support-annotations'
+    }
+    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
 }

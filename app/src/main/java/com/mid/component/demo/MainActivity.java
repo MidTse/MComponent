@@ -1,15 +1,38 @@
 package com.mid.component.demo;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-import com.bumptech.glide.Glide;
+import com.jess.arms.di.component.AppComponent;
+import com.mid.component.base.core.ui.BaseLoadActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseLoadActivity {
+
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public void setupActivityComponent(@NonNull AppComponent appComponent) {
+
+    }
+
+
+    @Override
+    protected int initContentView() {
+        return R.layout.activity_main;
+    }
+
+
+    @Override
+    public void initData(@Nullable Bundle savedInstanceState) {
+        super.initData(savedInstanceState);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showError("test");
+            }
+        }, 5000);
     }
 }

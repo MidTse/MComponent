@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="public_rootView" type="id"/>
+    <item name="public_refreshLayout" type="id"/>
+    <item name="public_recyclerView" type="id"/>
+    <item name="public_frameLayout" type="id"/>
+    <item name="public_toolbar" type="id"/>
+    <item name="public_toolbar_title" type="id"/>
+    <item name="public_banner" type="id"/>
+    <item name="public_scrollView" type="id"/>
+    <item name="public_viewPager" type="id"/>
+
+</resources>
