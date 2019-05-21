@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.gyf.barlibrary.ImmersionBar;
+import com.gyf.immersionbar.ImmersionBar;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.mvp.IPresenter;
 import com.jess.arms.mvp.IView;
@@ -63,14 +63,6 @@ public abstract class BaseActionActivity<P extends IPresenter> extends BaseActiv
     @Override
     public void hideCommiting() {
         ShowUtils.dismissLoadingDialog();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (enableImmersionBar() && mImmersionBar != null) {
-            mImmersionBar.destroy();
-        }
     }
 
 
