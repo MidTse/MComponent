@@ -73,8 +73,6 @@ public abstract class BaseActionActivity<P extends IPresenter> extends BaseActiv
         mImmersionBar.statusBarColor(android.R.color.white)
                 .keyboardEnable(true)
                 .statusBarDarkFont(true)
-                .navigationBarColor(android.R.color.white)
-                .navigationBarDarkIcon(true)
                 .fitsSystemWindows(true)
                 .init();
     }
