@@ -1,5 +1,9 @@
 apply plugin: 'com.android.library'
-apply from: 'bintray.gradle'
+
+
+//JitPack 配置
+apply plugin: 'com.github.dcendents.android-maven'
+group = 'com.github.MidTse'
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
@@ -45,11 +49,13 @@ dependencies {
     //Recyclerview适配器
     api rootProject.ext.dependencies["BaseRecyclerViewAdapter"]
     //页面多状态切换
-    api('com.github.FengChenSunshine:UiStatus:1.0.0'){
-        exclude module: 'support-annotations'
-    }
+//    api('com.github.FengChenSunshine:UiStatus:1.0.0'){
+//        exclude module: 'support-annotations'
+//    }
+    //基于Adapter思路实现的深度解耦App中全局LoadingView的轻量级工具
+    api 'com.billy.android:gloading:1.0.1'
     //沉浸式状态栏适配
-    api('com.gyf.immersionbar:immersionbar:3.0.0-beta03')
+    api('com.gyf.immersionbar:immersionbar:3.0.0')
 
     //Dagger2 Butterknife  apt编译操作
     annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {

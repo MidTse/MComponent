@@ -4,11 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.fengchen.uistatus.controller.IUiStatusController;
 import com.jess.arms.mvp.IPresenter;
 import com.jess.arms.utils.ArmsUtils;
 import com.mid.component.base.R;
@@ -126,8 +124,8 @@ public abstract class BaseListActivity<P extends IPresenter, A extends BaseQuick
     }
 
     @Override
-    public void onUiStatusRetry(Object o, IUiStatusController iUiStatusController, View view) {
-        super.onUiStatusRetry(o, iUiStatusController, view);
+    protected void onRetry() {
+        super.onRetry();
         setupListData();
     }
 

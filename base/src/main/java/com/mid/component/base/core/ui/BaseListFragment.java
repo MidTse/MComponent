@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.fengchen.uistatus.controller.IUiStatusController;
 import com.jess.arms.mvp.IPresenter;
 import com.jess.arms.utils.ArmsUtils;
 import com.mid.component.base.R;
@@ -134,11 +133,10 @@ public abstract class BaseListFragment<P extends IPresenter, A extends BaseQuick
 
 
     @Override
-    public void onUiStatusRetry(Object o, IUiStatusController iUiStatusController, View view) {
-        super.onUiStatusRetry(o, iUiStatusController, view);
+    protected void onRetry() {
+        super.onRetry();
         setupListData();
     }
-
 
     /**
      * 配置RecyclerView属性

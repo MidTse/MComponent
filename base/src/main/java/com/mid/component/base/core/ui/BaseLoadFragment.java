@@ -8,10 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.fengchen.uistatus.UiStatusController;
-import com.fengchen.uistatus.annotation.UiStatus;
-import com.fengchen.uistatus.controller.IUiStatusController;
-import com.fengchen.uistatus.listener.OnRetryListener;
 import com.jess.arms.mvp.IPresenter;
 import com.mid.component.base.R;
 
@@ -26,10 +22,12 @@ import timber.log.Timber;
  *     version : 0.1.0
  * </pre>
  */
-public abstract class BaseLoadFragment<P extends IPresenter> extends BaseActionFragment<P> implements LoadOwner, OnRetryListener {
+public abstract class BaseLoadFragment<P extends IPresenter> extends BaseActionFragment<P> implements LoadOwner {
 
     private View contentView;
-    protected UiStatusController mUiStatusController = UiStatusController.get();
+
+    //多视图状态管理器
+    protected StatusViewManager statusViewManager;
 
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,66 +41,55 @@ public abstract class BaseLoadFragment<P extends IPresenter> extends BaseActionF
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         if (initTitleView() != 0) {
             inflater.inflate(initTitleView(), rootView, true);
-            rootView.addView(contentView, layoutParams);
+            rootView.addView(wrapperStatusView(contentView), layoutParams);
         } else {
-            rootView.addView(contentView, layoutParams);
+            rootView.addView(wrapperStatusView(contentView), layoutParams);
         }
         return view;
     }
 
-    @Override
-    public void initData(@Nullable Bundle savedInstanceState) {
-        //配置UiStatusController相关属性
-        configUiStatusController(mUiStatusController);
-        mUiStatusController.setListener(UiStatus.NETWORK_ERROR, this);
-        mUiStatusController.setListener(UiStatus.LOAD_ERROR, this);
-        mUiStatusController.setListener(UiStatus.EMPTY, this);
-        super.initData(savedInstanceState);
 
-    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mUiStatusController = null;
         this.contentView = null;
+        this.statusViewManager = null;
     }
 
     @Override
     public void showLoading() {
         super.showLoading();
-        if (mUiStatusController != null) {
-            mUiStatusController.changeUiStatus(UiStatus.LOADING);
+        if (statusViewManager != null) {
+            statusViewManager.showLoading();
         }
     }
 
 
     @Override
     public void showSuccess() {
-        if (mUiStatusController != null) {
-            mUiStatusController.changeUiStatusIgnore(UiStatus.CONTENT);
+        if (statusViewManager != null) {
+            statusViewManager.showSuccess();
         }
     }
 
     @Override
     public void showEmpty() {
-        if (mUiStatusController != null) {
-            mUiStatusController.changeUiStatus(UiStatus.EMPTY);
+        if (statusViewManager != null) {
+            statusViewManager.showEmpty("");
         }
     }
 
     @Override
     public void showError(String hint) {
-        if (mUiStatusController != null) {
-            mUiStatusController.changeUiStatus(UiStatus.LOAD_ERROR);
+        if (statusViewManager != null) {
+            statusViewManager.showError(hint);
         }
-        showMessage(hint);
     }
 
 
-    @Override
-    public void onUiStatusRetry(Object o, IUiStatusController iUiStatusController, View view) {
-        Timber.tag(TAG).i("onUiStatusRetry");
+    protected void onRetry() {
+        Timber.tag(TAG).i("onRetry");
     }
 
     /**
@@ -121,12 +108,12 @@ public abstract class BaseLoadFragment<P extends IPresenter> extends BaseActionF
 
 
     /**
-     * 配置UiStatusController
-     * @param controller
+     * 包装状态View
+     * @param view
+     * @return
      */
-    protected void configUiStatusController(UiStatusController controller) {
-        controller.bind(contentView);
+    private View wrapperStatusView(View view) {
+        statusViewManager = new StatusViewManager(view, () -> onRetry());
+        return statusViewManager.wrapperView();
     }
-
-
 }
