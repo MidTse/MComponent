@@ -61,13 +61,13 @@ public class StatusViewManager {
     private Gloading.Holder provideHolder() {
         if (holder == null) {
             if (attachView.getId() == android.R.id.content) {
-                Gloading.getDefault()
+                holder = Gloading.getDefault()
                         .wrap((Activity) attachView.getContext())
                         .withData(holdMap)
                         .withRetry(() -> retryTask.run());
 
             } else {
-                Gloading.getDefault()
+                holder = Gloading.getDefault()
                         .wrap(attachView)
                         .withData(holdMap)
                         .withRetry(() -> retryTask.run());
