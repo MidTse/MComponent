@@ -48,12 +48,17 @@ public abstract class BaseLoadActivity<P extends IPresenter> extends BaseActionA
             //由于LoadSir加载需要保持标题栏，需要通过以下方式配置
             contentView = View.inflate(this, initContentView(), null);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            rootView.addView(wrapperStatusView(contentView), layoutParams);
+            rootView.addView(contentView, layoutParams);
         } else {
             throw new RuntimeException("Unable to find viewID is rootView");
         }
     }
 
+    @Override
+    public void initData(@Nullable Bundle savedInstanceState) {
+        super.initData(savedInstanceState);
+        statusViewManager = new StatusViewManager(contentView, () -> onRetry());
+    }
 
     @Override
     protected void onDestroy() {
@@ -113,13 +118,4 @@ public abstract class BaseLoadActivity<P extends IPresenter> extends BaseActionA
     protected abstract int initContentView();
 
 
-    /**
-     * 包装状态View
-     * @param view
-     * @return
-     */
-    private View wrapperStatusView(View view) {
-        statusViewManager = new StatusViewManager(view, () -> onRetry());
-        return statusViewManager.wrapperView();
-    }
 }
