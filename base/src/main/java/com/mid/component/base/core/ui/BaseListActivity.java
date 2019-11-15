@@ -72,6 +72,7 @@ public abstract class BaseListActivity<P extends IPresenter, A extends BaseQuick
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mRecyclerView.clearOnScrollListeners();
         mRecyclerView = null;
         mAdapter = null;
         mLayoutManager = null;
