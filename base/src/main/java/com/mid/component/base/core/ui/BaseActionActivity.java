@@ -65,6 +65,11 @@ public abstract class BaseActionActivity<P extends IPresenter> extends BaseActiv
         ShowUtils.dismissLoadingDialog();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        hideCommiting();
+    }
 
     /**
      * 初始化系统状态栏
