@@ -70,17 +70,7 @@ public class PageHandleSubscriber<T> extends ErrorHandleSubscriber<IPageResult<T
                     break;
             }
             if (!page.hasNextPage()) {
-                switch (mListOwner.getLoadType()) {
-                    case NORMAL:
-                    case REFRESH:
-                        mListOwner.showSuccess();
-                        mListOwner.loadMoreEnd();
-                        break;
-
-                    case LOADMORE:
-                        mListOwner.loadMoreEnd();
-                        break;
-                }
+                mListOwner.loadMoreEnd();
             }
 
             //加载成功的监听
