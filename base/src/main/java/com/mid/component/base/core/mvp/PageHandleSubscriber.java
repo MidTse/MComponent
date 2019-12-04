@@ -74,6 +74,7 @@ public class PageHandleSubscriber<T> extends ErrorHandleSubscriber<IPageResult<T
                     case NORMAL:
                     case REFRESH:
                         mListOwner.showSuccess();
+                        mListOwner.loadMoreEnd();
                         break;
 
                     case LOADMORE:
