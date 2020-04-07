@@ -53,7 +53,7 @@ dependencies {
 //        exclude module: 'support-annotations'
 //    }
     //基于Adapter思路实现的深度解耦App中全局LoadingView的轻量级工具
-    api 'com.billy.android:gloading:1.0.1'
+    api 'com.billy.android:gloading:1.1.0'
     //沉浸式状态栏适配
     api('com.gyf.immersionbar:immersionbar:3.0.0')
 
