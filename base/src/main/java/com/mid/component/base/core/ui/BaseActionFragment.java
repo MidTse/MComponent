@@ -1,14 +1,17 @@
 package com.mid.component.base.core.ui;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.dyhdyh.widget.loading.dialog.LoadingDialog;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.mvp.IPresenter;
 import com.jess.arms.mvp.IView;
+import com.mid.component.base.core.ui.dialog.CommonDialogFactory;
 import com.mid.component.base.utils.ShowUtils;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
@@ -31,6 +34,8 @@ public abstract class BaseActionFragment<P extends IPresenter> extends BaseFragm
     //判断是否已加载过数据
     protected boolean isLoadData = false;
 
+    private Dialog submitDialog;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -41,6 +46,11 @@ public abstract class BaseActionFragment<P extends IPresenter> extends BaseFragm
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        //创建提交对话框
+        submitDialog = LoadingDialog.make(requireContext(), new CommonDialogFactory())
+                .setCancelable(true)
+                .create();
+
         //视图初始化操作
         setupView();
 
@@ -101,12 +111,16 @@ public abstract class BaseActionFragment<P extends IPresenter> extends BaseFragm
 
     @Override
     public void showCommiting() {
-        ShowUtils.showLoadingDialog(getContext());
+        if (!submitDialog.isShowing()) {
+            submitDialog.show();
+        }
     }
 
     @Override
     public void hideCommiting() {
-        ShowUtils.dismissLoadingDialog();
+        if (submitDialog.isShowing()) {
+            submitDialog.dismiss();
+        }
     }
 
 

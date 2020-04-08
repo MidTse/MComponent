@@ -1,11 +1,13 @@
 package com.mid.component.base.core.ui;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.InflateException;
 
+import com.dyhdyh.widget.loading.dialog.LoadingDialog;
 import com.gyf.immersionbar.ImmersionBar;
 import com.jess.arms.base.delegate.IActivity;
 import com.jess.arms.integration.cache.Cache;
@@ -14,6 +16,7 @@ import com.jess.arms.integration.lifecycle.ActivityLifecycleable;
 import com.jess.arms.mvp.IPresenter;
 import com.jess.arms.mvp.IView;
 import com.jess.arms.utils.ArmsUtils;
+import com.mid.component.base.core.ui.dialog.CommonDialogFactory;
 import com.mid.component.base.utils.ShowUtils;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
@@ -39,6 +42,8 @@ public abstract class BaseActionActivity<P extends IPresenter> extends AppCompat
     private final BehaviorSubject<ActivityEvent> mLifecycleSubject = BehaviorSubject.create();
     private Cache<String, Object> mCache;
     private Unbinder mUnbinder;
+
+    private Dialog submitDialog;
 
     @Inject
     @Nullable
@@ -89,7 +94,7 @@ public abstract class BaseActionActivity<P extends IPresenter> extends AppCompat
         if (mPresenter != null)
             mPresenter.onDestroy();//释放资源
         this.mPresenter = null;
-        hideCommiting();
+        submitDialog = null;
     }
 
 
@@ -127,6 +132,11 @@ public abstract class BaseActionActivity<P extends IPresenter> extends AppCompat
             configImmersionBar();
         }
 
+        //创建提交对话框
+        submitDialog = LoadingDialog.make(this, new CommonDialogFactory())
+                .setCancelable(true)
+                .create();
+
     }
 
 
@@ -152,12 +162,16 @@ public abstract class BaseActionActivity<P extends IPresenter> extends AppCompat
 
     @Override
     public void showCommiting() {
-        ShowUtils.showLoadingDialog(this);
+        if (!submitDialog.isShowing()) {
+            submitDialog.show();
+        }
     }
 
     @Override
     public void hideCommiting() {
-        ShowUtils.dismissLoadingDialog();
+        if (submitDialog.isShowing()) {
+            submitDialog.dismiss();
+        }
     }
 
 
