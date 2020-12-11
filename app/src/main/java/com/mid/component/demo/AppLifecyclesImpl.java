@@ -3,8 +3,8 @@ package com.mid.component.demo;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.multidex.MultiDex;
+import androidx.annotation.NonNull;
+import androidx.multidex.MultiDex;
 
 import com.jess.arms.base.delegate.AppLifecycles;
 

@@ -2,10 +2,12 @@ package com.mid.component.base.core.ui;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.InflateException;
+
+import androidx.fragment.app.FragmentManager;
 
 import com.dyhdyh.widget.loading.dialog.LoadingDialog;
 import com.gyf.immersionbar.ImmersionBar;
@@ -113,7 +115,7 @@ public abstract class BaseActionActivity<P extends IPresenter> extends AppCompat
     }
 
     /**
-     * 这个Activity是否会使用Fragment,框架会根据这个属性判断是否注册{@link android.support.v4.app.FragmentManager.FragmentLifecycleCallbacks}
+     * 这个Activity是否会使用Fragment,框架会根据这个属性判断是否注册{@link FragmentManager.FragmentLifecycleCallbacks}
      * 如果返回false,那意味着这个Activity不需要绑定Fragment,那你再在这个Activity中绑定继承于 {@link com.jess.arms.base.BaseFragment} 的Fragment将不起任何作用
      *
      * @return
